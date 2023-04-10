@@ -1,0 +1,51 @@
+def secante(f, x0, x1, tol, n_max):
+    """
+    Encuentra la raíz de la función f mediante el método de la secante.
+    x0 y x1 son los valores iniciales, tol es la tolerancia (error permitido) y n_max es el número máximo de iteraciones.
+    """
+
+    # Verifica que la función tenga un cambio de signo entre los puntos iniciales
+    if f(x0) * f(x1) >= 0:
+        print("La función no tiene un cambio de signo entre los puntos iniciales.")
+        return None
+
+    # Inicializa los valores para la iteración
+    i = 1
+    error = tol + 1
+    x = x1
+
+    # Imprime la tabla de valores iniciales
+    print("{:<10} {:<10} {:<10} {:<10}".format("Iteración", "x", "f(x)", "Error"))
+    print("-" * 40)
+    print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, x, f(x), error))
+
+    # Itera hasta que se alcance la tolerancia o el número máximo de iteraciones
+    while error > tol and i < n_max:
+        # Calcula el nuevo valor de x utilizando la fórmula de la secante
+        x_nueva = x - (f(x) * (x - x0)) / (f(x) - f(x0))
+
+        # Calcula el error y actualiza la iteración y los valores de x0 y x
+        error = abs(x_nueva - x)
+        i += 1
+        x0 = x
+        x = x_nueva
+
+        # Imprime los valores para la iteración actual
+        print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, x, f(x), error))
+
+    # Imprime el resultado final
+    print("-" * 40)
+    print("La raíz aproximada es {:.5f} con un error de {:.5f}.".format(x, error))
+
+# Define la función que se utilizará para encontrar la raíz
+def f(x):
+    return x**3 - 2*x - 5
+
+# Define los parámetros iniciales
+x0 = 1
+x1 = 3
+tol = 0.0001
+n_max = 20
+
+# Llama a la función secante y pasa los parámetros
+secante(f, x0, x1, tol, n_max)
