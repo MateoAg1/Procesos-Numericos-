@@ -1,0 +1,62 @@
+import math
+
+def regla_falsa(f, a, b, tol, n_max):
+    """
+    Encuentra la raíz de la función f en el intervalo [a,b] mediante el método de Regla Falsa.
+    La función debe cambiar de signo en el intervalo [a,b].
+    tol es la tolerancia (error permitido) y n_max es el número máximo de iteraciones.
+    """
+
+    # Verifica que la función cambie de signo en el intervalo dado
+    if f(a) * f(b) >= 0:
+        print("La función no cambia de signo en el intervalo dado.")
+        return None
+
+    # Inicializa los valores para la iteración
+    i = 1
+    error = tol + 1
+    c = a
+
+    # Imprime la tabla de valores iniciales
+    print("{:<10} {:<10} {:<10} {:<10} {:<10}".format("Iteración", "a", "b", "c", "f(c)"))
+    print("-" * 50)
+    print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, a, b, c, f(c)))
+
+    # Itera hasta que se alcance la tolerancia o el número máximo de iteraciones
+    while error > tol and i < n_max:
+        # Calcula el nuevo punto c
+        c = b - ((f(b) * (b - a)) / (f(b) - f(a)))
+
+        # Verifica si la solución se ha encontrado exactamente
+        if f(c) == 0:
+            error = 0
+        else:
+            # Calcula el nuevo intervalo [a,b] para la próxima iteración
+            if f(c) * f(a) < 0:
+                b = c
+            else:
+                a = c
+
+            # Calcula el error y actualiza la iteración
+            error = abs((c - b) / c)
+            i += 1
+
+        # Imprime los valores para la iteración actual
+        print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, a, b, c, f(c)))
+
+    # Imprime el resultado final
+    print("-" * 50)
+    print("La raíz aproximada es {:.5f} con un error de {:.5f}.".format(c, error))
+
+# Define la función que se utilizará para encontrar la raíz
+def f(x):
+    return x**3 - 2*x - 5
+
+# Define los parámetros iniciales
+a = 2
+b = 3
+tol = 0.0001
+n_max = 20
+
+# Llama a la función regla_falsa y pasa los parámetros
+regla_falsa(f, a, b, tol, n_max)
