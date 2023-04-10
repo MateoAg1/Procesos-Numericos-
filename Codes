@@ -1,0 +1,61 @@
+import math
+
+def bisection(f, a, b, tol, max_iter):
+    """
+    Esta función implementa el método de bisección para encontrar una raíz de la función f en el intervalo [a, b].
+    La tolerancia (tol) especifica la precisión deseada para la raíz encontrada y el número máximo de iteraciones (max_iter)
+    especifica el número máximo de iteraciones permitidas antes de que se declare fracaso.
+    """
+    
+    # Verificar si la función es continua en el intervalo [a, b]
+    if f(a)*f(b) >= 0:
+        print("La función no es continua en el intervalo [a, b].")
+        return None
+    
+    # Inicializar variables
+    i = 0
+    c = (a + b) / 2
+    
+    # Imprimir tabla de resultados
+    print("Iteración\t  a\t\t  b\t\t  c\t\t  f(c)")
+    print("------------------------------------------------------------")
+    
+    # Bucle principal de iteración
+    while abs(f(c)) > tol and i < max_iter:
+        
+        # Imprimir fila de la tabla
+        print(f"{i+1}\t\t{a:.6f}\t{b:.6f}\t{c:.6f}\t{f(c):.6f}")
+        
+        # Actualizar el valor de c
+        c = (a + b) / 2
+        
+        # Actualizar los valores de a y b según la condición de bisección
+        if f(a)*f(c) < 0:
+            b = c
+        else:
+            a = c
+        
+        # Incrementar el contador de iteración
+        i += 1
+    
+    # Imprimir la última fila de la tabla
+    print(f"{i+1}\t\t{a:.6f}\t{b:.6f}\t{c:.6f}\t{f(c):.6f}")
+    
+    # Verificar si se alcanzó la tolerancia
+    if abs(f(c)) <= tol:
+        print(f"\nSe encontró una raíz en {c:.6f} después de {i+1} iteraciones.")
+        return c
+    else:
+        print("\nSe alcanzó el número máximo de iteraciones permitidas.")
+        return None
+
+# Para utilizar esta función, simplemente debes definir la función f(x) que quieres encontrar su raíz y llamar la función bisection() con los argumentos apropiados. Por ejemplo:
+def f(x):
+      return x**2 - 2
+
+  a = 0
+  b = 2
+  tol = 1e-6
+  max_iter = 100
+
+bisection(f, a, b, tol, max_iter)
