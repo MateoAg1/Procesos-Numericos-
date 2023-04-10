@@ -1,0 +1,55 @@
+import math
+
+def newton(f, f_derivada, x0, tol, n_max):
+    """
+    Encuentra la raíz de la función f mediante el método de Newton.
+    f_derivada es la derivada de la función f.
+    x0 es el valor inicial, tol es la tolerancia (error permitido) y n_max es el número máximo de iteraciones.
+    """
+
+    # Verifica que la función no tenga una derivada nula en el punto inicial
+    if f_derivada(x0) == 0:
+        print("La derivada de la función es nula en el punto inicial.")
+        return None
+
+    # Inicializa los valores para la iteración
+    i = 1
+    error = tol + 1
+    x = x0
+
+    # Imprime la tabla de valores iniciales
+    print("{:<10} {:<10} {:<10} {:<10}".format("Iteración", "x", "f(x)", "f'(x)"))
+    print("-" * 40)
+    print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, x, f(x), f_derivada(x)))
+
+    # Itera hasta que se alcance la tolerancia o el número máximo de iteraciones
+    while error > tol and i < n_max:
+        # Calcula el nuevo valor de x
+        x = x - f(x) / f_derivada(x)
+
+        # Calcula el error y actualiza la iteración
+        error = abs(f(x))
+        i += 1
+
+        # Imprime los valores para la iteración actual
+        print("{:<10} {:<10.5f} {:<10.5f} {:<10.5f}".format(i, x, f(x), f_derivada(x)))
+
+    # Imprime el resultado final
+    print("-" * 40)
+    print("La raíz aproximada es {:.5f} con un error de {:.5f}.".format(x, error))
+
+# Define la función que se utilizará para encontrar la raíz
+def f(x):
+    return x**3 - 2*x - 5
+
+# Define la derivada de la función
+def f_derivada(x):
+    return 3*x**2 - 2
+
+# Define los parámetros iniciales
+x0 = 2
+tol = 0.0001
+n_max = 20
+
+# Llama a la función newton y pasa los parámetros
+newton(f, f_derivada, x0, tol, n_max)
