@@ -1,0 +1,7 @@
+La eliminación gaussiana es un método numérico utilizado para resolver sistemas de ecuaciones lineales. En la mecánica de fluidos, se utilizan modelos matemáticos que describen el comportamiento de los fluidos en movimiento. Estos modelos a menudo implican la solución de sistemas de ecuaciones lineales para determinar la velocidad, la presión y otras propiedades del fluido en un determinado punto.
+
+La eliminación gaussiana se puede utilizar para resolver estos sistemas de ecuaciones lineales de manera eficiente y precisa. Por lo tanto, es una herramienta importante para los ingenieros y científicos que trabajan en la mecánica de fluidos.
+
+Por ejemplo, en la simulación numérica de la dinámica de fluidos (CFD, por sus siglas en inglés), la eliminación gaussiana se utiliza para resolver las ecuaciones de Navier-Stokes, que describen el comportamiento de los fluidos. Además, la eliminación gaussiana también se utiliza en otros métodos numéricos, como el método de elementos finitos, para resolver sistemas de ecuaciones lineales en la mecánica de fluidos.
+
+En resumen, la eliminación gaussiana es una herramienta importante en la mecánica de fluidos para resolver sistemas de ecuaciones lineales que describen el comportamiento de los fluidos en movimiento.
