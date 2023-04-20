@@ -1,38 +1,38 @@
-% Función a evaluar
+% Function to be evaluated
 f = @(x) x^3 - 2*x - 5;
 
-% Intervalo de interés
+% Interval of interest
 a = 2;
 b = 3;
 
-% Verificar que la función tenga signos opuestos en los extremos del intervalo
+% Verify that the function has opposite signs at the ends of the interval
 if f(a)*f(b) > 0
-    error('La función no cambia de signo en el intervalo dado');
+    error('La función no cambia de signo en el intervalo dado / The function does not change sign in the given interval');
 end
 
-% Criterio de parada
-tol = 1e-6; % Tolerancia
-maxiter = 100; % Número máximo de iteraciones
+% Stop criteria
+tol = 1e-6; % Tolerance
+maxiter = 100; % Maximum number of iterations
 
-% Inicialización de variables
+% Variable initialization
 iter = 0;
 x = a;
 fa = f(a);
 fb = f(b);
 
-% Tabla de resultados
+% Table of results
 fprintf('iter \t a \t\t b \t\t x \t\t f(a) \t\t f(b) \t\t f(x) \n');
 
-% Implementación del método de la regla falsa
+% Implementation of the false rule method
 while abs(f(x)) > tol && iter < maxiter
     iter = iter + 1;
     x = (a*fb - b*fa)/(fb - fa);
     fx = f(x);
     
-    % Mostrar resultados en cada iteración
+    % Show results at each iteration
     fprintf('%d \t %f \t %f \t %f \t %f \t %f \t %f \n', iter, a, b, x, fa, fb, fx);
     
-    % Actualización de los valores
+    % Updating of values
     if fx*fa < 0
         b = x;
         fb = fx;
@@ -42,9 +42,9 @@ while abs(f(x)) > tol && iter < maxiter
     end
 end
 
-% Resultado final
+% Final result
 if abs(f(x)) <= tol
-    fprintf('\nLa raíz aproximada es x = %f con un error de %f\n', x, abs(f(x)));
+    fprintf('\nLa raíz aproximada es / The approximate root is x = %f con un error de %f\n', x, abs(f(x)));
 else
     fprintf('\nNo se encontró una raíz en %d iteraciones\n', maxiter);
 end
