@@ -1,32 +1,32 @@
-% Creamos una matriz de ejemplo
+% We create an example matrix
 A = [2 1 -1 2; -3 -1 2 -3; -2 1 2 -1; 1 -1 1 -1];
 
-% Verificamos si la matriz es resoluble por el método de eliminación gaussiana
+% We verify whether the matrix is solvable by the Gaussian elimination method
 if det(A) == 0
-    disp('La matriz no se puede resolver por eliminación gaussiana');
+    disp('La matriz no se puede resolver por eliminación gaussiana / The matrix cannot be solved by Gaussian elimination.');
 else
-    % Creamos una copia de la matriz
+    % We create a copy of the matrix
     B = A;
 
-    % Imprimimos la tabla de la matriz original
-    disp('Matriz original:');
+    % We print the table of the original matrix
+    disp('Original Matrix:');
     disp(A);
 
-    % Realizamos las operaciones de eliminación gaussiana
-    for k = 1:size(B,1)-1 % Recorremos las filas de la matriz
-        for i = k+1:size(B,1) % Recorremos las filas debajo de la fila actual
-            factor = B(i,k) / B(k,k); % Calculamos el factor de eliminación
-            for j = k:size(B,2) % Recorremos las columnas de la fila actual
-                B(i,j) = B(i,j) - factor * B(k,j); % Realizamos la eliminación gaussiana
+    % We perform the following Gaussian elimination operations
+    for k = 1:size(B,1)-1 % We go through the rows of the matrix
+        for i = k+1:size(B,1) % Scroll through the rows below the current row
+            factor = B(i,k) / B(k,k); % We calculate the elimination factor
+            for j = k:size(B,2) % We scroll through the columns of the current row
+                B(i,j) = B(i,j) - factor * B(k,j); % We perform Gaussian elimination
             end
         end
         
-        % Imprimimos la tabla de la matriz copia
-        disp(['Matriz después de la iteración ', num2str(k), ':']);
+        % We print the table of the copy matrix
+        disp(['Matriz después de la iteración / Matrix after iteration ', num2str(k), ':']);
         disp(B);
     end
 
-    % Imprimimos la solución del sistema
-    disp('La solución del sistema es:');
+    % We print the system solution
+    disp('La solución del sistema es / The solution of the system is:');
     disp(B(:,end) ./ diag(B));
 end
