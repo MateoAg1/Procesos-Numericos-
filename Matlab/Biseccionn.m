@@ -1,36 +1,36 @@
-% Función: f(x)
-% Intervalo: [a,b]
-% Tolerancia: tol
-% Máximo número de iteraciones: maxiter
+% Function: f(x)
+% Interval: [a,b] 
+% Tolerance: tol
+% Maximum number of iterations: maxiter
 
-% Verificar si la función es adecuada para el método de la bisección
+% Verify if the function is suitable for the bisection method
 if f(a)*f(b) >= 0
-    error('La función no cambia de signo en el intervalo dado. El método de la bisección no es adecuado.')
+    error('La función no cambia de signo en el intervalo dado. El método de la bisección no es adecuado. / The function does not change sign in the given interval. The bisection method is not suitable.')
 end
 
-% Inicializar variables
+% Initialize variables
 iter = 0;
 fa = f(a);
 fb = f(b);
 
-% Imprimir encabezado de la tabla
-fprintf('Iteración \t a \t\t b \t\t c \t\t f(c)\n')
+% Print table header
+fprintf('Iteration \t a \t\t b \t\t c \t\t f(c)\n')
 
-% Bucle principal
+% Main loop
 while (b-a)/2 > tol && iter < maxiter
-    % Calcular punto medio
+    % Calculate midpoint
     c = (a+b)/2;
     fc = f(c);
     
-    % Imprimir valores de la iteración actual
+    % Print values of the current iteration
     fprintf('%d \t\t %.4f \t %.4f \t %.4f \t %.4f\n', iter, a, b, c, fc)
     
-    % Verificar si c es la raíz exacta
+    % Check if c is the exact root
     if fc == 0
         break
     end
     
-    % Actualizar intervalo
+    % Update interval
     if fa*fc < 0
         b = c;
         fb = fc;
@@ -39,9 +39,9 @@ while (b-a)/2 > tol && iter < maxiter
         fa = fc;
     end
     
-    % Incrementar contador de iteraciones
+    % Increment iteration counter
     iter = iter + 1;
 end
 
-% Imprimir resultado final
-fprintf('Raíz aproximada: %.4f\n', c)
+% Print final result
+fprintf('Raíz aproximada / Approximate root: %.4f\n', c)
