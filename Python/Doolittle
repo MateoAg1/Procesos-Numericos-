@@ -5,7 +5,7 @@ def doolittle(A, b):
     L = np.zeros((n, n))
     U = np.zeros((n, n))
 
-    # Descomposición de Doolittle
+    # Descomposición de Doolittle / Doolittle Descomposition
     for i in range(n):
         L[i][i] = 1
 
@@ -23,21 +23,21 @@ def doolittle(A, b):
         print("U:")
         print(U)
 
-    # Resolución del sistema
+    # Resolución del sistema / System Resolution
     y = np.zeros(n)
     x = np.zeros(n)
 
-    # Sustitución progresiva Ly = b
+    # Sustitución progresiva Ly = b / Progressive Sustitution
     for i in range(n):
         y[i] = (b[i] - np.dot(L[i], y)) / L[i][i]
 
-    # Sustitución regresiva Ux = y
+    # Sustitución regresiva Ux = y / Regresive Sustitution
     for i in range(n-1, -1, -1):
         x[i] = (y[i] - np.dot(U[i], x)) / U[i][i]
 
     return L, U, x
 
-#Ingresar A y b
+#Ingresar A y b / Insert A and b
 A = np.array([[4, -1, 0, 3],
               [1, 15.5, 3, 8],
               [0, -1.3, -4, 1.1],
@@ -46,7 +46,7 @@ A = np.array([[4, -1, 0, 3],
 b = np.array([1, 1, 1, 1])
 
 
-#Función Doolittle
+#Función Doolittle / Doolittle Function
 L, U, solution = doolittle(A, b)
 
 print("\nMatriz de coeficientes A:")
