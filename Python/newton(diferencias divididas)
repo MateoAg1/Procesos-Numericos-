@@ -39,7 +39,7 @@ def polinomio_newton(coeficientes, x, n):
     return polinomio
 
 
-# Obtener los datos de la tabla
+# Obtener los datos de la tabla / Obtain data from the table
 num_datos = int(input("Ingrese el número de datos en la tabla: "))
 x = []
 y = []
@@ -48,22 +48,22 @@ for i in range(num_datos):
     x.append(float(input(f"Ingrese el valor de x{i+1}: ")))
     y.append(float(input(f"Ingrese el valor de y{i+1}: ")))
 
-# Calcular la tabla de diferencias divididas
+# Calcular la tabla de diferencias divididas / Calculate divided differences table
 tabla_diferencias = diferencias_divididas(x, y, num_datos)
 
-# Calcular los coeficientes del polinomio de Newton
+# Calcular los coeficientes del polinomio de Newton / Calculate coeficents of the Newton's polynomial
 coeficientes = coeficientes_newton(tabla_diferencias, num_datos)
 
-# Calcular el polinomio de Newton
+# Calcular el polinomio de Newton / Calculate the Newton's polynomial
 polinomio = polinomio_newton(coeficientes, x, num_datos)
 
-# Imprimir la tabla de diferencias divididas
+# Imprimir la tabla de diferencias divididas / Print divided differences table
 print("Tabla de diferencias divididas:")
 for fila in tabla_diferencias:
     print(fila)
 
-# Imprimir los coeficientes del polinomio de Newton
+# Imprimir los coeficientes del polinomio de Newton / Print coeficents of the Newton's polynomial
 print("Coeficientes del polinomio de Newton:", coeficientes)
 
-# Imprimir el polinomio de Newton
+# Imprimir el polinomio de Newton / Print the Newton's polynomial
 print("Polinomio de Newton:", polinomio)
