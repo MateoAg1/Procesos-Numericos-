@@ -5,7 +5,7 @@ def cholesky(A, b):
     L = np.zeros((n, n))
     U = np.zeros((n, n))
 
-    # Para la Descomposicion de Cholesky
+    # Para la Descomposicion de Cholesky / For Cholesky Decomposition
     for i in range(n):
         for j in range(i+1):
             if i == j:
@@ -13,32 +13,32 @@ def cholesky(A, b):
             else:
                 L[i][j] = (A[i][j] - np.sum(L[i][:j]*L[j][:j])) / L[j][j]
 
-        # Imprime matriz L en cada etapa
+        # Imprime matriz L en cada etapa / Print the Matrix L in each step
         print("Matriz L (Etapa ", i+1, "):")
         print(L)
 
         U = L.T
 
-        # Imprime matriz U en cada etapa
+        # Imprime matriz U en cada etapa / Print the Matrix U in each step
         print("Matriz U (Etapa ", i+1, "):")
         print(U)
 
-    # Realiza la sustitución progresiva
+    # Realiza la sustitución progresiva / Do the Progressive Sustitution
     y = np.zeros(n)
     for i in range(n):
         y[i] = (b[i] - np.sum(L[i][:i]*y[:i])) / L[i][i]
 
-    # Realiza la sustitución regresiva
+    # Realiza la sustitución regresiva / Do the Regressive Sustitution
     x = np.zeros(n)
     for i in range(n-1, -1, -1):
         x[i] = (y[i] - np.sum(U[i][i+1:]*x[i+1:])) / U[i][i]
 
-    # Imprime la solución x
+    # Imprime la solución x / Print the x solution
     print("\nSolución x:")
     for i, sol in enumerate(x):
         print(f"x{i+1} = {sol}")
 
-# Introducir sistema de ecuaciones de forma matricial:
+# Introducir sistema de ecuaciones de forma matricial: / Insert the Matrix
 A = np.array([[10, 3, 0, 1],
               [3, 10, 2, 0],
               [0, 2, 8, 4],
