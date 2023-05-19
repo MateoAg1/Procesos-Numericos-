@@ -15,18 +15,18 @@ def trazador_lineal(x, y):
 
     return a, b, trazadores
 
-# Tabla de valores dada
+# Tabla de valores dada / Value Table
 tabla_valores = pd.DataFrame({"x": [-1, 0, 3, 4],
-                              "y": [15, 3, 8, 1]})
+                              "y": [15.5, 3, 8, 1]})
 
-# Obtener valores de x - y
+# Obtener valores de x - y / Obtain X-y Values
 x = tabla_valores["x"].values
 y = tabla_valores["y"].values
 
-# Calcular coeficientes y trazadores lineales
+# Calcular coeficientes y trazadores lineales / Calculate Splines and Coeficients
 coeficientes, interceptos, trazadores = trazador_lineal(x, y)
 
-# Imprimir resultados
+# Imprimir resultados / Print Results
 print("Resultados:")
 print("Coeficientes de los Trazadores:")
 for i, coef in enumerate(coeficientes):
