@@ -1,0 +1,69 @@
+def diferencias_divididas(x, y, n):
+    matriz_diferencias = [[0] * n for _ in range(n)]
+
+    for i in range(n):
+        matriz_diferencias[i][0] = y[i]
+
+    for j in range(1, n):
+        for i in range(n - j):
+            matriz_diferencias[i][j] = (matriz_diferencias[i + 1][j - 1] - matriz_diferencias[i][j - 1]) / (x[i + j] - x[i])
+
+    return matriz_diferencias
+
+
+def coeficientes_newton(matriz_diferencias, n):
+    coeficientes = [matriz_diferencias[0][0]]
+
+    for i in range(1, n):
+        coeficientes.append(matriz_diferencias[0][i])
+
+    return coeficientes
+
+
+def polinomio_newton(coeficientes, x, n):
+    polinomio = str(coeficientes[0])
+
+    for i in range(1, n):
+        termino = ''
+        if coeficientes[i] >= 0:
+            termino += ' + '
+        else:
+            termino += ' - '
+        termino += str(abs(coeficientes[i]))
+
+        for j in range(i):
+            termino += ' * (x - ' + str(x[j]) + ')'
+
+        polinomio += termino
+
+    return polinomio
+
+
+# Obtener los datos de la tabla
+num_datos = int(input("Ingrese el número de datos en la tabla: "))
+x = []
+y = []
+
+for i in range(num_datos):
+    x.append(float(input(f"Ingrese el valor de x{i+1}: ")))
+    y.append(float(input(f"Ingrese el valor de y{i+1}: ")))
+
+# Calcular la tabla de diferencias divididas
+tabla_diferencias = diferencias_divididas(x, y, num_datos)
+
+# Calcular los coeficientes del polinomio de Newton
+coeficientes = coeficientes_newton(tabla_diferencias, num_datos)
+
+# Calcular el polinomio de Newton
+polinomio = polinomio_newton(coeficientes, x, num_datos)
+
+# Imprimir la tabla de diferencias divididas
+print("Tabla de diferencias divididas:")
+for fila in tabla_diferencias:
+    print(fila)
+
+# Imprimir los coeficientes del polinomio de Newton
+print("Coeficientes del polinomio de Newton:", coeficientes)
+
+# Imprimir el polinomio de Newton
+print("Polinomio de Newton:", polinomio)
