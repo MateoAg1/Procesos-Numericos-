@@ -1,0 +1,37 @@
+import numpy as np
+import pandas as pd
+
+def trazador_lineal(x, y):
+    n = len(x)
+    a = np.zeros(n-1)
+    b = np.zeros(n-1)
+    trazadores = []
+
+    for i in range(n-1):
+        a[i] = (y[i+1] - y[i]) / (x[i+1] - x[i])
+        b[i] = y[i] - a[i] * x[i]
+        trazador = f"{a[i]:.4f} * x + {b[i]:.4f}"
+        trazadores.append(trazador)
+
+    return a, b, trazadores
+
+# Tabla de valores dada
+tabla_valores = pd.DataFrame({"x": [-1, 0, 3, 4],
+                              "y": [15, 3, 8, 1]})
+
+# Obtener valores de x - y
+x = tabla_valores["x"].values
+y = tabla_valores["y"].values
+
+# Calcular coeficientes y trazadores lineales
+coeficientes, interceptos, trazadores = trazador_lineal(x, y)
+
+# Imprimir resultados
+print("Resultados:")
+print("Coeficientes de los Trazadores:")
+for i, coef in enumerate(coeficientes):
+    print(f"Coeficiente {i+1}: {coef:.4f}")
+
+print("\nTrazadores:")
+for i, trazador in enumerate(trazadores):
+    print(f" {trazador}")
