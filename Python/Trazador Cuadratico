@@ -18,18 +18,18 @@ def trazador_cuadratico(x, y):
 
     return a, b, c, trazadores
 
-# Tabla de valores
+# Tabla de valores / Value Tables
 tabla_valores = pd.DataFrame({"x": [1, 2, 3, 4, 5],
                               "y": [1, 3, 2, 4, 6]})
 
-# Obtener valores de x e y
+# Obtener valores de x e y / Obtain X-y Values
 x = tabla_valores["x"].values
 y = tabla_valores["y"].values
 
-# Calcular coeficientes y trazadores cuadráticos
+# Calcular coeficientes y trazadores cuadráticos / Calculate Splines and Coeficients
 coeficientes_a, coeficientes_b, coeficientes_c, trazadores = trazador_cuadratico(x, y)
 
-# Imprimir resultados
+# Imprimir resultados / Print Results
 print("Resultados:")
 for i in range(len(coeficientes_a)):
     print(f"Coeficientes del Trazador #{i+1}:")
@@ -38,6 +38,6 @@ for i in range(len(coeficientes_a)):
     print(f"c = {coeficientes_c[i]:.4f}")
     print()
 
-print("Trazadores:")
+print("Trazadores:") 
 for i, trazador in enumerate(trazadores):
     print(f"{trazador}")
