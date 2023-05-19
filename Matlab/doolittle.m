@@ -28,6 +28,14 @@ function [L, U, x] = doolittle(A, b)
         for i = k+1:n
             L(i, k) = (A(i, k) - L(i, 1:k-1) * U(1:k-1, k)) / U(k, k);
         end
+        
+        % Mostrar etapa actual
+        disp(['Etapa ', num2str(k)]);
+        disp('Matriz L:');
+        disp(L);
+        disp('Matriz U:');
+        disp(U);
+        disp('------------------');
     end
 
     % Agregar unos en la diagonal de L
@@ -36,6 +44,14 @@ function [L, U, x] = doolittle(A, b)
     % Resolver el sistema de ecuaciones
     y = inferior(L, b);
     x = superior(U, y);
+    
+    % Mostrar resultados
+    disp('Matriz L final:');
+    disp(L);
+    disp('Matriz U final:');
+    disp(U);
+    disp('Vector solución:');
+    disp(x);
 end
 
 % Funcion para resolver un sistema triangular inferior
