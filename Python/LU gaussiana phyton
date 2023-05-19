@@ -1,9 +1,9 @@
 import numpy as np
 
 def lu_elim_gaussiana(A, b):
-    n = A.shape[0]  # Número de filas de la matriz A
-    L = np.eye(n)   # Matriz L inicializada como la identidad
-    U = np.copy(A)  # Matriz U inicializada como A
+    n = A.shape[0]  # Número de filas de la matriz A / Lines Number of Matrix A
+    L = np.eye(n)   # Matriz L inicializada como la identidad / Matrix L initialized as identity
+    U = np.copy(A)  # Matriz U inicializada como A / Matrix U initialized as A
 
     etapas = []
 
