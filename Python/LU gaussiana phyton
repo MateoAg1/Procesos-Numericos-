@@ -1,0 +1,82 @@
+import numpy as np
+
+def lu_elim_gaussiana(A, b):
+    n = A.shape[0]  # Número de filas de la matriz A
+    L = np.eye(n)   # Matriz L inicializada como la identidad
+    U = np.copy(A)  # Matriz U inicializada como A
+
+    etapas = []
+
+    for k in range(n-1):
+        etapa = {}
+        etapa['k'] = k
+        etapa['U'] = np.copy(U)
+        etapa['L'] = np.copy(L)
+
+        for i in range(k+1, n):
+            factor = U[i, k] / U[k, k]
+            L[i, k] = factor
+            U[i, k:] = U[i, k:] - factor * U[k, k:]
+
+        etapas.append(etapa)
+
+    etapa_final = {}
+    etapa_final['k'] = n-1
+    etapa_final['U'] = np.copy(U)
+    etapa_final['L'] = np.copy(L)
+    etapas.append(etapa_final)
+
+    return etapas
+
+def sustitucion_progresiva(L, b):
+    n = L.shape[0]
+    y = np.zeros(n)
+
+    for i in range(n):
+        y[i] = b[i] - np.dot(L[i, :i], y[:i])
+
+    return y
+
+def sustitucion_regresiva(U, y):
+    n = U.shape[0]
+    x = np.zeros(n)
+
+    for i in range(n-1, -1, -1):
+        x[i] = (y[i] - np.dot(U[i, i+1:], x[i+1:])) / U[i, i]
+
+    return x
+
+
+filas = int(input("Ingrese el número de filas de la matriz A: "))
+columnas = int(input("Ingrese el número de columnas de la matriz A: "))
+
+A = np.zeros((filas, columnas))
+for i in range(filas):
+    for j in range(columnas):
+        A[i, j] = float(input(f"Ingrese el valor de A[{i+1}][{j+1}]: "))
+
+
+b = np.zeros(filas)
+for i in range(filas):
+    b[i] = float(input(f"Ingrese el valor de b[{i+1}]: "))
+
+
+etapas = lu_elim_gaussiana(A, b)
+
+
+for etapa in etapas:
+    print(f"\nEtapa {etapa['k']}:")
+    print("Matriz L:")
+    print(etapa['L'])
+    print("Matriz U:")
+    print(etapa['U'])
+
+
+y = sustitucion_progresiva(etapas[-1]['L'], b)
+
+
+x = sustitucion_regresiva(etapas[-1]['U'], y)
+
+
+print("\nResultado de x:")
+print(x)
