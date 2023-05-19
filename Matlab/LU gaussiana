@@ -1,0 +1,57 @@
+function [x, L, U] = factorizacionLU(A, b)
+    % Obtener el tamaño de la matriz A
+    [filas, columnas] = size(A);
+    
+    % Pedir al usuario el número de filas y columnas de las matrices
+    filas = input("Ingrese el número de filas de la matriz A: ");
+    columnas = input("Ingrese el número de columnas de la matriz A: ");
+    
+    % Pedir al usuario los elementos de la matriz A
+    disp("Ingrese los elementos de la matriz A:");
+    A = zeros(filas, columnas);
+    for i = 1:filas
+        for j = 1:columnas
+            A(i, j) = input(sprintf("A(%d, %d): ", i, j));
+        end
+    end
+    
+    % Pedir al usuario los elementos del vector b
+    disp("Ingrese los elementos del vector b:");
+    b = zeros(filas, 1);
+    for i = 1:filas
+        b(i) = input(sprintf("b(%d): ", i));
+    end
+    
+    % Inicialización
+    L = eye(filas);
+    U = zeros(filas);
+    M = A;
+    
+    % Factorización
+    for i = 1:filas-1
+        for j = i+1:filas
+            if M(j, i) ~= 0
+                L(j, i) = M(j, i) / M(i, i);
+                M(j, i:columnas) = M(j, i:columnas) - (M(j, i) / M(i, i)) * M(i, i:columnas);
+            end
+        end
+        U(i, i:columnas) = M(i, i:columnas);
+        U(i+1, i+1:columnas) = M(i+1, i+1:columnas);
+        
+        % Mostrar las etapas de los sistemas matriciales
+        fprintf("Etapa %d:\n", i-1);
+        disp(M);
+    end
+    U(filas, filas) = M(filas, filas);
+    
+    % Mostrar las matrices L y U
+    fprintf("Matriz L:\n");
+    disp(L);
+    fprintf("Matriz U:\n");
+    disp(U);
+    
+    % Entrega de resultados
+    z = sust_prog(L, b);
+    x = sust_reg(U, z);
+end
+
