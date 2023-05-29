@@ -1,32 +1,47 @@
-% Creamos una matriz de ejemplo
-A = [2 1 -1 2; -3 -1 2 -3; -2 1 2 -1; 1 -1 1 -1];
-
-% Verificamos si la matriz es resoluble por el método de eliminación gaussiana
-if det(A) == 0
-    disp('La matriz no se puede resolver por eliminación gaussiana');
-else
-    % Creamos una copia de la matriz
-    B = A;
-
-    % Imprimimos la tabla de la matriz original
-    disp('Matriz original:');
-    disp(A);
-
-    % Realizamos las operaciones de eliminación gaussiana
-    for k = 1:size(B,1)-1 % Recorremos las filas de la matriz
-        for i = k+1:size(B,1) % Recorremos las filas debajo de la fila actual
-            factor = B(i,k) / B(k,k); % Calculamos el factor de eliminación
-            for j = k:size(B,2) % Recorremos las columnas de la fila actual
-                B(i,j) = B(i,j) - factor * B(k,j); % Realizamos la eliminación gaussiana
-            end
-        end
-        
-        % Imprimimos la tabla de la matriz copia
-        disp(['Matriz después de la iteración ', num2str(k), ':']);
-        disp(B);
+function x = eliminacionGaussiana(A, b)
+    % Verificar que el tamaño de la matriz A y el vector b sea compatible
+    [m, n] = size(A);
+    if m ~= n || n ~= length(b)
+        error('El tamaño de la matriz A y el vector b no es compatible.');
     end
 
-    % Imprimimos la solución del sistema
-    disp('La solución del sistema es:');
-    disp(B(:,end) ./ diag(B));
+    % Concatenar matriz A y vector b en una matriz extendida
+    Ab = [A b];
+
+    % Eliminación Gaussiana
+    for k = 1:n-1
+        % Pivoteo parcial
+        [~, maxIndex] = max(abs(Ab(k:n, k)));  % Encontrar índice del máximo valor en la columna k
+        maxIndex = maxIndex + k - 1;  % Ajustar el índice al tamaño completo de la matriz
+        Ab([k maxIndex], :) = Ab([maxIndex k], :);  % Intercambiar filas k y maxIndex
+
+        % Mostrar paso actual
+        disp(['Paso ', num2str(k)]);
+        disp('Matriz extendida:');
+        disp(Ab);
+        disp('');
+
+        % Eliminación hacia adelante
+        for i = k+1:n
+            factor = Ab(i, k) / Ab(k, k);
+            Ab(i, k:n+1) = Ab(i, k:n+1) - factor * Ab(k, k:n+1);
+        end
+    end
+
+    % Mostrar la matriz triangular superior resultante
+    disp('Matriz triangular superior:');
+    disp(Ab);
+    disp('');
+
+    % Resolución del sistema triangular superior
+    x = zeros(n, 1);
+    x(n) = Ab(n, n+1) / Ab(n, n);
+    for i = n-1:-1:1
+        x(i) = (Ab(i, n+1) - Ab(i, i+1:n) * x(i+1:n)) / Ab(i, i);
+    end
+
+    % Mostrar el vector solución
+    disp('Vector solución:');
+    disp(x);
 end
+
