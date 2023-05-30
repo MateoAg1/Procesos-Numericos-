@@ -1,0 +1,42 @@
+import sympy as sp
+
+def calcular_punto_equilibrio_propuesta_A():
+    # Definir variables y parámetros
+    x = sp.Symbol('x')  # Número de unidades vendidas
+    ingreso_por_unidad = 20
+    costos_fijos_A = 50000
+    costos_variables_A = 12
+    costo_total_A = costos_fijos_A + costos_variables_A * x
+    ingreso_total_A = ingreso_por_unidad * x
+
+    # Definir la función objetivo (diferencia entre ingreso total y costo total)
+    funcion_objetivo_A = ingreso_total_A - costo_total_A
+
+    # Calcular el punto de equilibrio utilizando el método de Newton
+    punto_equilibrio_A = sp.nsolve(funcion_objetivo_A, x, 1000)  # Supongamos un punto de partida de 1000 unidades
+
+    return punto_equilibrio_A
+
+def calcular_punto_equilibrio_propuesta_B():
+    # Definir variables y parámetros
+    x = sp.Symbol('x')  # Número de unidades vendidas
+    ingreso_por_unidad = 20
+    costos_fijos_B = 70000
+    costos_variables_B = 10
+    costo_total_B = costos_fijos_B + costos_variables_B * x
+    ingreso_total_B = ingreso_por_unidad * x
+
+    # Definir la función objetivo (diferencia entre ingreso total y costo total)
+    funcion_objetivo_B = ingreso_total_B - costo_total_B
+
+    # Calcular el punto de equilibrio utilizando el método de Newton
+    punto_equilibrio_B = sp.nsolve(funcion_objetivo_B, x, 1000)  # Supongamos un punto de partida de 1000 unidades
+
+    return punto_equilibrio_B
+
+# Calcular los puntos de equilibrio para las propuestas A y B
+punto_equilibrio_propuesta_A = calcular_punto_equilibrio_propuesta_A()
+punto_equilibrio_propuesta_B = calcular_punto_equilibrio_propuesta_B()
+
+print("Punto de equilibrio en unidades para la propuesta A:", punto_equilibrio_propuesta_A)
+print("Punto de equilibrio en unidades para la propuesta B:", punto_equilibrio_propuesta_B)
