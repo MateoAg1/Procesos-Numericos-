@@ -1,0 +1,44 @@
+def eliminacion_gaussiana_simple(A, b):
+    n = len(A)
+    
+    # Eliminación hacia adelante
+    for i in range(n-1):
+        for j in range(i+1, n):
+            factor = A[j][i] / A[i][i]
+            for k in range(i, n):
+                A[j][k] -= factor * A[i][k]
+            b[j] -= factor * b[i]
+    
+    # Sustitución hacia atrás
+    x = [0] * n
+    x[n-1] = b[n-1] / A[n-1][n-1]
+    for i in range(n-2, -1, -1):
+        sumatoria = 0
+        for j in range(i+1, n):
+            sumatoria += A[i][j] * x[j]
+        x[i] = (b[i] - sumatoria) / A[i][i]
+    
+    return x
+
+
+def calcular_punto_equilibrio():
+    costo_fijo = 250000.00
+    costo_variable_por_libro = 20.00
+    precio_venta_por_libro = 30.00
+    
+    A = [[precio_venta_por_libro - costo_variable_por_libro]]
+    b = [costo_fijo]
+    
+    x = eliminacion_gaussiana_simple(A, b)
+    
+    punto_equilibrio_libros = int(x[0])
+    punto_equilibrio_dolares = punto_equilibrio_libros * precio_venta_por_libro
+    
+    return punto_equilibrio_libros, punto_equilibrio_dolares
+
+
+# Calcular el punto de equilibrio
+punto_equilibrio_libros, punto_equilibrio_dolares = calcular_punto_equilibrio()
+
+print("Punto de equilibrio para libros:", punto_equilibrio_libros)
+print("Punto de equilibrio para dólares:", round(punto_equilibrio_dolares, 2))
