@@ -1,0 +1,51 @@
+import numpy as np
+
+def eliminacion_gaussiana_pivoteo_total(A, b):
+    n = len(A)
+    indices = np.arange(n)
+
+    for i in range(n-1):
+        pivot_row = i
+        pivot_col = i
+        pivot_value = 0
+
+        for row in range(i, n):
+            for col in range(i, n):
+                if abs(A[row][col]) > pivot_value:
+                    pivot_value = abs(A[row][col])
+                    pivot_row = row
+                    pivot_col = col
+
+        A[[i, pivot_row]] = A[[pivot_row, i]]
+        A[:, [i, pivot_col]] = A[:, [pivot_col, i]]
+        b[[i, pivot_row]] = b[[pivot_row, i]]
+        indices[[i, pivot_col]] = indices[[pivot_col, i]]
+
+        for row in range(i+1, n):
+            factor = A[row][i] / A[i][i]
+            A[row] -= factor * A[i]
+            b[row] -= factor * b[i]
+
+    x = np.zeros(n)
+
+    for i in range(n-1, -1, -1):
+        x[i] = (b[i] - np.dot(A[i, i+1:], x[i+1:])) / A[i][i]
+
+    return x
+
+def punto_equilibrio(costos_fijos, costo_variable, precio_venta):
+    A = np.array([[precio_venta - costo_variable]])
+    b = np.array([costos_fijos])
+
+    return eliminacion_gaussiana_pivoteo_total(A, b)
+
+costos_fijos_A = 50000
+costos_fijos_B = 70000
+costos_variables_A = 12.00
+costos_variables_B = 10.00
+ingreso_por_unidad = 20.00
+punto_equilibrio_A, punto_equilibrio_B = punto_equilibrio_propuestas(costos_fijos_A, costos_fijos_B, costos_variables_A, costos_variables_B, ingreso_por_unidad)
+
+
+print("El número de libros requeridos para alcanzar el punto de equilibrio es:", num_libros_punto_equilibrio)
+print("El punto de equilibrio en dólares es:", punto_equilibrio_dolares)
