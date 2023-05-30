@@ -1,0 +1,52 @@
+def punto_equilibrio_propuestas():
+    def f(propuesta, unidades):
+        # Valores para la propuesta A
+        costos_fijos_A = 50000
+        costos_variables_A = 12
+        ingreso_A = 20
+
+        # Valores para la propuesta B
+        costos_fijos_B = 70000
+        costos_variables_B = 10
+        ingreso_B = 20
+
+        if propuesta == 'A':
+            costos_fijos = costos_fijos_A
+            costos_variables = costos_variables_A
+            ingreso = ingreso_A
+        elif propuesta == 'B':
+            costos_fijos = costos_fijos_B
+            costos_variables = costos_variables_B
+            ingreso = ingreso_B
+
+        return ingreso * unidades - (costos_fijos + costos_variables * unidades)
+
+    def biseccion(propuesta):
+        a = 0  # Límite inferior
+        b = 100000  # Límite superior
+        epsilon = 0.01  # Precisión deseada
+
+        while (b - a) >= epsilon:
+            x = (a + b) / 2
+            y = f(propuesta, x)
+
+            if y == 0:
+                return x
+            elif y > 0:
+                b = x
+            else:
+                a = x
+
+        return (a + b) / 2
+
+    punto_equilibrio_A = biseccion('A')
+    punto_equilibrio_B = biseccion('B')
+
+    return punto_equilibrio_A, punto_equilibrio_B
+
+# Llamada a la función
+equilibrio_A, equilibrio_B = punto_equilibrio_propuestas()
+
+# Imprimir resultados
+print("Punto de equilibrio en unidades para la propuesta A:", equilibrio_A)
+print("Punto de equilibrio en unidades para la propuesta B:", equilibrio_B)
